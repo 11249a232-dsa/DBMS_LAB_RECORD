@@ -1,0 +1,169 @@
+SQL*Plus: Release 11.2.0.1.0 Production on Mon Aug 3 10:54:52 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A167@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> select * from tab
+  2  ;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+TEST                           TABLE
+STUDENT4                       TABLE
+STUDENT3                       TABLE
+STUDENT1                       TABLE
+STUDENT                        TABLE
+BIN$UZJehnsJRgWbgi+gkmlPoA==$0 TABLE
+
+6 rows selected.
+
+SQL> drop table student1;
+
+Table dropped.
+
+SQL> select * from tab
+  2  ;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+TEST                           TABLE
+STUDENT4                       TABLE
+STUDENT3                       TABLE
+STUDENT                        TABLE
+BIN$WSsR5GfWTdyLYgSUHsEWcw==$0 TABLE
+BIN$UZJehnsJRgWbgi+gkmlPoA==$0 TABLE
+
+6 rows selected.
+
+SQL> CREATE TABLE Student1
+  2  (
+  3      RegNo CHAR(10) PRIMARY KEY,
+  4      Name VARCHAR2(30),
+  5      Department VARCHAR2(20)
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE Marks
+  2  (
+  3      RegNo CHAR(10),
+  4      Total_Marks NUMBER(3),
+  5      FOREIGN KEY (RegNo) REFERENCES Student1(RegNo)
+  6  );
+
+Table created.
+
+SQL> insert into student1 values ('11249A167','sangi','cse');
+
+1 row created.
+
+SQL> insert into student1 values ('11249A168','yogi','cse');
+
+1 row created.
+
+SQL> insert into marks values ('11249A167',95);
+
+1 row created.
+
+SQL> insert into marks values ('11249A168',96);
+
+1 row created.
+
+SQL> select * from student1;
+
+REGNO      NAME                           DEPARTMENT
+---------- ------------------------------ --------------------
+11249A167  sangi                          cse
+11249A168  yogi                           cse
+
+SQL> select * from marks;
+
+REGNO      TOTAL_MARKS
+---------- -----------
+11249A167           95
+11249A168           96
+
+SQL> create table department
+  2  (
+  3  Deptid number(3) primary key,
+  4  deptname char(20)
+  5  );
+
+Table created.
+
+
+SQL> CREATE TABLE Students
+  2  (
+  3      RegNo NUMBER(5) PRIMARY KEY,
+  4      Name VARCHAR2(30),
+  5      Email VARCHAR2(50) UNIQUE,
+  6      Age NUMBER(3) CHECK (Age >= 18),
+  7      Gender VARCHAR2(10) DEFAULT 'Male',
+  8      DeptID NUMBER(3),
+  9      FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+ 10  );
+
+Table created.
+
+SQL> INSERT INTO Department VALUES (1, 'CSE');
+
+1 row created.
+
+SQL> INSERT INTO Department VALUES (2, 'ECE');
+
+1 row created.
+
+SQL> INSERT INTO Department VALUES (3, 'IT');
+
+1 row created.
+
+                                 
+SQL> insert into students (regno,name,email,age,deptid)
+  2  VALUES (103, 'Rahul', 'rahul@gmail.com', 18, 3);
+
+1 row created.
+
+SQL> select * from department
+  2  ;
+
+    DEPTID DEPTNAME
+---------- --------------------
+         1 CSE
+         2 ECE
+         3 IT
+
+SQL> select * from students
+  2  ;
+
+     REGNO NAME
+---------- ------------------------------
+EMAIL                                                     AGE GENDER
+-------------------------------------------------- ---------- ----------
+    DEPTID
+----------
+       103 Rahul
+rahul@gmail.com                                            18 Male
+         3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
