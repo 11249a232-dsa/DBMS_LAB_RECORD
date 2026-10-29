@@ -1,0 +1,152 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Mon Sep 7 10:25:32 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: a232@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> CREATE TABLE STUDENT
+  2  (
+  3   STUDENT_ID NUMBER(5) PRIMARY KEY,
+  4   STUDENT_NAME VARCHAR2(30),
+  5   DEPARTMENT VARCHAR2(20),
+  6  MARKS NUMBER(3)
+  7  );
+
+Table created.
+
+SQL> insert into student values (232,'likith','cse',95);
+
+1 row created.
+
+SQL> insert into student values(206,'pramodh','cse',85);
+
+1 row created.
+
+SQL> insert into student values(228,'monish','cse',75);
+
+1 row created.
+
+SQL> insert into student values(121,'vardhan','cse',65);
+
+1 row created.
+
+SQL> insert into student values(100,'vamsi','cse',80);
+
+1 row created.
+
+SQL> insert into student values(127,'sunny','mech',90);
+
+1 row created.
+
+SQL> select count (*) as total_students
+  2  from student;
+
+TOTAL_STUDENTS
+--------------
+             6
+
+SQL> select sum(marks) as total_marks
+  2  from student;
+
+TOTAL_MARKS
+-----------
+        490
+
+SQL> select avg(marks) as average_marks
+  2  from student;
+
+AVERAGE_MARKS
+-------------
+   81.6666667
+
+SQL> select max(marks) as highest_mark
+  2  from student;
+
+HIGHEST_MARK
+------------
+          95
+
+SQL> select min(marks) as lowest_mark
+  2  from student;
+
+LOWEST_MARK
+-----------
+         65
+
+SQL> select department,avg(marks) as avg_marks
+  2  from student
+  3  group by department;
+
+DEPARTMENT            AVG_MARKS
+-------------------- ----------
+cse                          80
+mech                         90
+
+SQL> select department,count(*) as total_students
+  2  from student
+  3  group by department;
+
+DEPARTMENT           TOTAL_STUDENTS
+-------------------- --------------
+cse                               5
+mech                              1
+
+SQL> select department,max(marks) as max_marks
+  2  from student
+  3  group by department;
+
+DEPARTMENT            MAX_MARKS
+-------------------- ----------
+cse                          95
+mech                         90
+
+SQL> select department,avg(marks) as avg_marks
+  2  from student
+  3  group by department
+  4  having avg (marks) >65;
+
+DEPARTMENT            AVG_MARKS
+-------------------- ----------
+cse                          80
+mech                         90
+
+SQL> select department,count(*) as total_students
+  2  from student
+  3  group  by department
+  4  having count(*) >1;
+
+DEPARTMENT           TOTAL_STUDENTS
+-------------------- --------------
+cse                               5
+
+SQL> select department ,count(*) as no_of_students,
+  2  avg(marks) as avg_marks,max(marks) as highest_mark
+  3  from student
+  4  group by department
+  5  having avg(marks)>65;
+
+DEPARTMENT           NO_OF_STUDENTS  AVG_MARKS HIGHEST_MARK
+-------------------- -------------- ---------- ------------
+cse                               5         80           95
+mech                              1         90           90
+
+SQL> select *from student;
+
+STUDENT_ID STUDENT_NAME                   DEPARTMENT                MARKS
+---------- ------------------------------ -------------------- ----------
+       232 likith                         cse                          95
+       206 pramodh                        cse                          85
+       228 monish                         cse                          75
+       121 vardhan                        cse                          65
+       100 vamsi                          cse                          80
+       127 sunny                          mech                         90
+
+6 rows selected.
+
+SQL> 
+  

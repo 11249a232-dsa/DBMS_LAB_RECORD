@@ -1,0 +1,200 @@
+SQL> create table department(
+  2  dept_id number(3) primary key,
+  3  dept_name varchar2(30)
+  4  );
+
+Table created.
+
+SQL> insert into department values(232,'cse');
+
+1 row created.
+
+SQL> insert into department values (206,'aeronautical');
+
+1 row created.
+
+SQL> insert into department values(228,'civil');
+
+1 row created.
+
+SQL> drop table student
+  2  ;
+
+Table dropped.
+
+SQL> create table student(
+  2  student_id number(5) primary key,
+  3  student_name varchar2(30),
+  4  marks number(3),
+  5  dept_id number(3),
+  6  constraint fk_dept foreign key(dept_id)
+  7  references department(dept_id)
+  8  );
+
+Table created.
+
+SQL> insert into student values(1001,'likith',95,232);
+
+1 row created.
+
+SQL> insert into student values(1002,'pramodh',85,206);
+
+1 row created.
+
+SQL> insert into student values(1003,'monish',75,228);
+
+1 row created.
+
+SQL> select s.student_id,s.student_name,d.dept_name
+  2  from student s
+  3  inner join department d
+  4  on s.dept_id =d.dept_id;
+
+STUDENT_ID STUDENT_NAME                   DEPT_NAME
+---------- ------------------------------ ------------------------------
+      1001 likith                         cse
+      1002 pramodh                        aeronautical
+      1003 monish                         civil
+
+SQL> select s.student_name,d.dept_name
+  2  from student s
+  3  left outer join department d
+  4  on s.dept_id = d.dept_id;
+
+STUDENT_NAME                   DEPT_NAME
+------------------------------ ------------------------------
+likith                         cse
+pramodh                        aeronautical
+monish                         civil
+
+SQL> select s.student_name , d.dept_name
+  2  from student s
+  3  right outer join department d
+  4  on s.dept_id = d.dept_id;
+
+STUDENT_NAME                   DEPT_NAME
+------------------------------ ------------------------------
+likith                         cse
+pramodh                        aeronautical
+monish                         civil
+
+SQL> select s.student_name, d.dept_name
+  2  from student s
+  3  full outer join department d
+  4  on s.dept_id = d.dept_id;
+
+STUDENT_NAME                   DEPT_NAME
+------------------------------ ------------------------------
+likith                         cse
+pramodh                        aeronautical
+monish                         civil
+
+SQL> create table employee
+  2  (
+  3  emp_id number(5) primary key,
+  4  emp_name varchar2(30),
+  5  manager_id number(5)
+  6  );
+
+Table created.
+
+SQL> DROP TABLE EMPLOYEE
+  2  ;
+
+Table dropped.
+
+SQL> create table employee
+  2  (
+  3  emp_id number(5) primary key,
+  4  emp_name varchar2(30),
+  5  manager_id number(5)
+  6  );
+
+Table created.
+
+SQL> insert into employee values(7,'likith',null);
+
+1 row created.
+
+SQL> insert into employee values(5,'pramodh',2);
+
+1 row created.
+
+SQL> insert into employee values(6,'monish',1);
+
+1 row created.
+
+SQL> select e.emp_name employee,m.emp_name manager
+  2  from employee e
+  3  left join employee m
+  4  on e.manager_id = m.emp_id;
+
+EMPLOYEE                       MANAGER
+------------------------------ ------------------------------
+likith
+pramodh
+monish
+
+SQL> select student_name,marks
+  2  from student
+  3  where marks >
+  4  9
+  5  ;
+
+STUDENT_NAME                        MARKS
+------------------------------ ----------
+likith                                 95
+pramodh                                85
+monish                                 75
+
+SQL> select student_name,marks
+  2  from student
+  3  where marks >
+  4  (
+  5  select avg(marks)
+  6  from student
+  7  );
+
+STUDENT_NAME                        MARKS
+------------------------------ ----------
+likith                                 95
+
+SQL> select student_name
+  2  from student
+  3  where dept_id in
+  4  (
+  5  select dept_id
+  6  from department
+  7  where dept_name = 'cse'
+  8  );
+
+STUDENT_NAME
+------------------------------
+likith
+
+SQL> select student_name,marks,dept_id
+  2  from student s1
+  3  where marks =
+  4  9
+  5  ;
+
+no rows selected
+
+SQL> select student_name,marks,dept_id
+  2  from student s1
+  3  where marks =
+  4  (
+  5  select max(marks)
+  6  from student s2
+  7  where s1.dept_id = s2.dept_id
+  8  );
+
+STUDENT_NAME                        MARKS    DEPT_ID
+------------------------------ ---------- ----------
+likith                                 95        232
+pramodh                                85        206
+monish                                 75        228
+
+
+
+

@@ -1,0 +1,125 @@
+SQL*Plus: Release 11.2.0.1.0 Production on Mon Aug 10 11:53:44 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A232@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table student(regno varchar2(10),stuname char(30),dept char(10),DOB Date);
+
+Table created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(10)
+ STUNAME                                            CHAR(30)
+ DEPT                                               CHAR(10)
+ DOB                                                DATE
+
+SQL> insert into student values('11249A232','likith','CSE','28-apr-2006b');
+
+1 row created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(10)
+ STUNAME                                            CHAR(30)
+ DEPT                                               CHAR(10)
+ DOB                                                DATE
+
+SQL> select * from student;
+
+REGNO      STUNAME                        DEPT       DOB
+---------- ------------------------------ ---------- ---------
+11249A232  likith                        CSE        28-APR-06
+
+SQL> create table student2 as select * from student;
+
+Table created.
+
+SQL> desc student2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(10)
+ STUNAME                                            CHAR(30)
+ DEPT                                               CHAR(10)
+ DOB                                                DATE
+
+SQL> create table student3 as select Regno,stuname from student;
+
+Table created.
+
+SQL> desc student3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(10)
+ STUNAME                                            CHAR(30)
+
+SQL> create table student4 as select * from student where 1>2;
+
+Table created.
+
+SQL> desc student4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(10)
+ STUNAME                                            CHAR(30)
+ DEPT                                               CHAR(10)
+ DOB                                                DATE
+
+SQL> create table student5 as select regno,stuname,DOB from student where 1=0;
+
+Table created.
+
+SQL> desc student5;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(10)
+ STUNAME                                            CHAR(30)
+ DOB                                                DATE
+
+SQL> alter table student1 modify stuname char(20);
+
+Table altered.
+
+SQL> alter table student modify stuname char(50);
+
+Table altered.
+
+SQL> alter table student add cgpa varchar2(5);
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(10)
+ STUNAME                                            CHAR(50)
+ DEPT                                               CHAR(10)
+ DOB                                                DATE
+ CGPA                                               VARCHAR2(5)
+
+SQL> drop table student1;
+
+Table dropped.
+
+SQL> drop table student2;
+
+Table dropped.
+
+SQL> drop table student3;
+
+Table dropped.
+
+SQL> drop table student4;
+
+Table dropped.
+
+SQL> drop table student5;
+
+Table dropped.

@@ -1,0 +1,160 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Mon Aug 3 09:39:00 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A232@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table student(
+  2  reg_no number(10) primary key,
+  3  name varchar2(20),
+  4  DOB Date,
+  5  fee number(10));
+
+Table created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                    NOT NULL NUMBER(10)
+ NAME                                               VARCHAR2(20)
+ DOB                                                DATE
+ FEE                                                NUMBER(10)
+
+SQL> insert into student values(232,'likith','28-apr=2006',75000);
+
+1 row created.
+
+SQL> insert into student values(228,'monish.s.m','31-mar-2007',95000);
+
+1 row created.
+
+SQL> insert into student values(206,'pramodh','30-apr-2007',65000);
+
+1 row created.
+
+SQL> desc student
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG_NO                                    NOT NULL NUMBER(10)
+ NAME                                               VARCHAR2(20)
+ DOB                                                DATE
+ FEE                                                NUMBER(10)
+
+SQL> select * from student;
+
+    REG_NO NAME                 DOB              FEE
+---------- -------------------- --------- ----------
+       232 likith              28-APR-06      75000
+       228 monish.s.m           31-MAR-07      95000
+       232 pramodh               30-APR-07      65000
+
+SQL> create table student1(
+  2  stuno number(10)constraint stu_pkey primary key,
+  3  stuname varchar2(20),
+  4  DOB Date,
+  5  fee number(19));
+
+Table created.
+
+SQL> desc student1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUNO                                     NOT NULL NUMBER(10)
+ STUNAME                                            VARCHAR2(20)
+ DOB                                                DATE
+ FEE                                                NUMBER(19)
+
+SQL> insert into student1 values(232,'likith','28-apr-2006',75000);
+
+1 row created.
+
+SQL> select * from student1
+  2  ;
+
+     STUNO STUNAME              DOB              FEE
+---------- -------------------- --------- ----------
+       232 likith              28-APR-06      75000
+
+SQL> create table student2(
+  2  stuname varchar2(20),
+  3  stuno number(3),
+  4  DOB Date,
+  5  fee number(5),Constraint stu2_pkey
+  6  Primary key(stuno));
+
+Table created.
+
+SQL> desc student2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUNAME                                            VARCHAR2(20)
+ STUNO                                     NOT NULL NUMBER(3)
+ DOB                                                DATE
+ FEE                                                NUMBER(5)
+
+SQL> insert into student2 values('likith',232,’28-apr-2006',75000);
+
+1 row created.
+
+SQL> select * from student2;
+
+STUNAME                   STUNO DOB              FEE
+-------------------- ---------- --------- ----------
+Likith                      232 28-APR-06     75000
+
+SQL> create table dept (
+  2  deptid number(5) primary key,
+  3  deptname varchar2(20) NOT NULL
+  4  );
+
+Table created.
+
+SQL> insert into dept values(2,'CSE');
+
+1 row created.
+
+SQL> select * from dept;
+
+    DEPTID DEPTNAME
+---------- --------------------
+         2 CSE
+
+SQL> create table studentinfo(
+  2  stuno varchar2(10) primary key,
+  3  stuname varchar2(20) NOT NULL,
+  4  age number(2) Check(age>=17 and age<= 30),
+  5  email varchar2(50) Unique
+  6  );
+
+Table created.
+
+SQL> desc studentinfo;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUNO                                     NOT NULL VARCHAR2(10)
+ STUNAME                                   NOT NULL VARCHAR2(20)
+ AGE                                                NUMBER(2)
+ EMAIL                                              VARCHAR2(50)
+
+SQL> insert into studentinfo values('11249A232’','likith',20,'11249A232@kanchiuniv.ac.in');
+
+1 row created.
+
+SQL> select * from studentinfo;
+
+STUNO      STUNAME                     AGE
+---------- -------------------- ----------
+EMAIL
+--------------------------------------------------
+11249A232  pramodh                      20
+11249A232@kanchiuniv.ac.in
+
+
+SQL>
+
+
